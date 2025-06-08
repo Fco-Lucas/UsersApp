@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lcsz.first.data.local.SessionManager
 import com.lcsz.first.domain.usecase.auth.LoginUserUseCase // Importe o Caso de Uso
 import com.lcsz.first.ui.screens.login.LoginUiState
 import com.lcsz.first.util.Resource // Importe o Resource wrapper
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUserUseCase: LoginUserUseCase // Agora injeta o Caso de Uso
+    private val loginUserUseCase: LoginUserUseCase, // Agora injeta o Caso de Uso
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val TAG = "LoginViewModel"
@@ -59,6 +61,7 @@ class LoginViewModel @Inject constructor(
                         // resource.data aqui é o objeto User
                         if (resource.data != null) {
                             Log.i(TAG, "Login bem-sucedido: Token: ${resource.data}")
+                            sessionManager.saveAuthToken(resource.data)
                             _loginUiState.value = LoginUiState.Success(resource.data)
                         } else {
                             // Isso não deveria acontecer se a lógica do Resource.Success garantir data não nula

@@ -8,8 +8,7 @@ plugins {
 
 android {
     namespace = "com.lcsz.first"
-    compileSdk = 35 // Sugestão: Usar 34 para maior estabilidade atual (Android 14)
-    // a menos que você precise especificamente de APIs do Android 15 (API 35)
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.lcsz.first"
@@ -76,4 +75,10 @@ dependencies {
 
     // Para integração do Hilt com Navigation Compose
     implementation(libs.androidx.hilt.navigation.compose)
+
+    // Para segurança
+    implementation(libs.androidx.security.crypto)
+
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
 }

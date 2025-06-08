@@ -1,9 +1,8 @@
 package com.lcsz.first.di
 
-// ApiService não é mais injetado aqui diretamente, mas no UserRepositoryImpl
 import com.lcsz.first.data.repository.AuthRepositoryImpl
 import com.lcsz.first.data.repository.UserRepositoryImpl
-import com.lcsz.first.domain.repository.AuthRepository // Importe a INTERFACE
+import com.lcsz.first.domain.repository.AuthRepository
 import com.lcsz.first.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module

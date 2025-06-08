@@ -1,5 +1,7 @@
 package com.lcsz.first.di
 
+import com.lcsz.first.data.local.SessionManager
+import com.lcsz.first.data.remote.interceptor.AuthInterceptor
 import com.lcsz.first.data.remote.service.AuthApiService
 import com.lcsz.first.data.remote.service.UserApiService
 import com.squareup.moshi.Moshi
@@ -20,6 +22,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASE_URL = "http://10.0.2.2:8181/api/v1/"
+    // private const val BASE_URL = "http://192.168.0.12:8181/api/v1/"
 
     @Provides
     @Singleton
@@ -31,11 +34,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideAuthInterceptor(sessionManager: SessionManager): AuthInterceptor {
+        return AuthInterceptor(sessionManager)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
         return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

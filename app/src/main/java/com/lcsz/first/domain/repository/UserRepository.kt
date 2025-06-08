@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     fun create(name: String, cpf: String, password: String): Flow<Resource<User>>
+
+    fun getUsers(): Flow<Resource<List<User>>>
 }

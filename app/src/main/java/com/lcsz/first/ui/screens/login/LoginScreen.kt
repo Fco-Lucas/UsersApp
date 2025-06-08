@@ -2,7 +2,6 @@ package com.lcsz.first.ui.screens.login
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,7 +38,8 @@ import com.lcsz.first.R
 @Composable
 fun LoginScreen(
     navController: NavController,
-    loginViewModel: LoginViewModel = hiltViewModel()
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    onLoginSuccess: () -> Unit
 ) {
     val cpf = loginViewModel.cpf
     val password = loginViewModel.password
@@ -56,9 +56,7 @@ fun LoginScreen(
             is LoginUiState.Success -> {
                 // Agora currentState.user contém o objeto User do domínio
                 Toast.makeText(context, "Login bem-sucedido! Token: ${currentState.token}", Toast.LENGTH_LONG).show()
-                navController.navigate(AppScreen.HomeScreen.route) {
-                    popUpTo(AppScreen.LoginScreen.route) { inclusive = true }
-                }
+                onLoginSuccess()
                 loginViewModel.resetLoginState()
             }
             is LoginUiState.Error -> {

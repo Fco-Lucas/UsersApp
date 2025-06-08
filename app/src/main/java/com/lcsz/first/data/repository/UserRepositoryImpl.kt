@@ -32,4 +32,18 @@ class UserRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override fun getUsers(): Flow<Resource<List<User>>> {
+        return safeApiCall (
+            moshi = moshi,
+            apiCall = { userApiService.getUsers() },
+            mapper = { userDtoList -> userDtoList.map { it.toDomainUser() } }
+        ).onEach { resource ->
+            when (resource) {
+                is Resource.Success -> Log.i(TAG, "Lista de usuários recuperada com sucesso (via safeApiCall).")
+                is Resource.Error -> Log.e(TAG, "Erro ao recuperar a lista de usuários (via safeApiCall): ${resource.message}")
+                is Resource.Loading -> Log.d(TAG, "Recuperando a lista de usuários (via safeApiCall)...")
+            }
+        }
+    }
 }
