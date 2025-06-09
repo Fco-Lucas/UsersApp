@@ -21,8 +21,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class) // Dependências viverão enquanto o app viver
 object NetworkModule {
 
-    private const val BASE_URL = "http://10.0.2.2:8181/api/v1/"
-    // private const val BASE_URL = "http://192.168.0.12:8181/api/v1/"
+    // private const val BASE_URL = "http://10.0.2.2:8181/api/v1/"
+    private const val BASE_URL = "http://192.168.0.12:8181/api/v1/"
 
     @Provides
     @Singleton

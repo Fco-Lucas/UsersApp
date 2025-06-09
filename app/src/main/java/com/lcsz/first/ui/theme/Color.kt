@@ -2,6 +2,10 @@ package com.lcsz.first.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val BlueLight = Color(0xFF87CEFA)
+val BlueBase = Color(0xFF0000FF)
+val BlueDark = Color(0xFF4169E1)
+
 val GreenLight = Color(0xFF3B9B62)
 val GreenBase = Color(0xFF257F49)
 val GreenDark = Color(0xFF052914)
